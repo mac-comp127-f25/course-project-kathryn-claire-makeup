@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-
-
 ## A title 
 Makeup Painter
 
