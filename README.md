@@ -1,4 +1,8 @@
 <<<<<<< HEAD
+=======
+# Makeup App
+>>>>>>> 12be7406eb07f144265ac9c61c635adc0dcb0349
+
 ## A title 
 Makeup Painter
 
@@ -25,8 +29,5 @@ Our project allows the user to have full creative reign on creating makeup on a 
 Instead of drawing the makeup, the user will be able to just click on an area of the face and the area will automatically get colored in. 
 
 ## You should have shared your project idea with students outside your group. What did they say?
-
-=======
-# Makeup App
->>>>>>> 12be7406eb07f144265ac9c61c635adc0dcb0349
+That's pretty cool, from Jason.
 
