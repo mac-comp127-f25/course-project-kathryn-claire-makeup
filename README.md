@@ -1,4 +1,5 @@
-# Makeup
+<<<<<<< HEAD
+
 
 ## A title 
 Makeup Painter
@@ -27,4 +28,7 @@ Instead of drawing the makeup, the user will be able to just click on an area of
 
 ## You should have shared your project idea with students outside your group. What did they say?
 
+=======
+# Makeup App
+>>>>>>> 12be7406eb07f144265ac9c61c635adc0dcb0349
 
