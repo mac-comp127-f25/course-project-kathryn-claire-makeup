@@ -22,7 +22,7 @@ public class MakeupApp {
 
     public MakeupApp() {
         canvas = new CanvasWindow("Makeup", 900, 800);
-        canvas.add(new MonaLisa().getGraphics(), 200, 0);
+        canvas.add(new MonaLisa().getGraphics(), -50, -60);
 
         paintLayer = new GraphicsGroup();
         canvas.add(paintLayer);
