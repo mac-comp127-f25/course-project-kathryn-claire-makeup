@@ -15,59 +15,58 @@ import edu.macalester.graphics.ui.Button;
 public class MakeupApp {
     
     private CanvasWindow canvas;
-    // private final BrushSettingsView brushSettingsView;
-    private Brushes currentBrush;
+    private final BrushSettingsView brushSettingsView;
+    private Brush currentBrush;
     private GraphicsGroup paintLayer; 
-
-    private final List<Brushes> availableBrushes = new ArrayList<>();
+    private final List<Brush> availableBrushes;
 
     public MakeupApp() {
         canvas = new CanvasWindow("Makeup", 900, 800);
-        Ellipse face = new Ellipse (0,0,100,100);
-        face.setStrokeColor(Color.BLACK);
-        canvas.add(face);
+        canvas.add(new MonaLisa().getGraphics(), 200, 0);
 
-    //     brushSettingsView = new BrushSettingsView(Color.BLUE, 60);
-    //     canvas.add(brushSettingsView, 10 - brushSettingsView.getBounds().getMinX(), 10);
+        paintLayer = new GraphicsGroup();
+        canvas.add(paintLayer);
 
-    //     currentBrush = new Brush.CirclesBrush();
+        brushSettingsView = new BrushSettingsView(Color.BLUE, 60);
+        canvas.add(brushSettingsView, 10 - brushSettingsView.getBounds().getMinX(), 10);
 
-    //     canvas.onMouseDown(event -> sprayPaint(event.getPosition()));
-    //     canvas.onDrag(event -> sprayPaint(event.getPosition()));
+        availableBrushes = List.of(new SprayBrush(), new Eraser());
+        currentBrush = availableBrushes.get(0);
 
-    //     availableBrushes.add(new Brush.SprayBrush());
-    //     availableBrushes.add(new Brush.Eraser());
+        canvas.onMouseDown(event -> sprayPaint(event.getPosition()));
+        canvas.onDrag(event -> sprayPaint(event.getPosition()));
 
-    //     double y = 300;
-    //     for (Brushes brush : availableBrushes) {
-    //         addBrushButton(brush, y);
-    //         y += 40;
-    //     }
 
-    // }
+        double y = 300;
+        for (Brush brush : availableBrushes) {
+            addBrushButton(brush, y);
+            y += 40;
+        }
 
-    // public void sprayPaint(Point location) {
-    //     BrushOptions brushOptions = brushSettingsView.getBrushOptions();
-    //     Color color = brushOptions.getColor();
-    //     float radius = brushOptions.getRadius();
-    //     this.currentBrush.apply(paintLayer, location, brushOptions, color, radius);
+        }
 
-    // }
+        public void sprayPaint(Point location) {
+            BrushOptions brushOptions = brushSettingsView.getBrushOptions();
+            Color color = brushOptions.getColor();
+            float radius = brushOptions.getRadius();
+            this.currentBrush.apply(paintLayer, location, brushOptions, color, radius);
 
-    // public void addBrushButton(Brushes brush, double y) {
-    //     String label = brush.getClass().getSimpleName();
-    //     Button button = new Button(label);
-    //     button.setPosition(10, y);
-    //     canvas.add(button);
+        }
 
-    //     button.onClick(() -> {
-    //         currentBrush = brush;
-    //     });
-    }
+        public void addBrushButton(Brush brush, double y) {
+            String label = brush.getClass().getSimpleName();
+            Button button = new Button(label);
+            button.setPosition(10, y);
+            canvas.add(button);
 
-    public static void main(String[] args) {
-        new MakeupApp();
-    }
+            button.onClick(() -> {
+                currentBrush = brush;
+            });
+        }
+
+        public static void main(String[] args) {
+            new MakeupApp();
+        }
 
     
 }

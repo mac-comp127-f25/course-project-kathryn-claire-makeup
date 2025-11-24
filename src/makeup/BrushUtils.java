@@ -22,7 +22,7 @@ public class BrushUtils {
             radius,  // radius
             new float[] { 0, 0.10f, 0.26f, 0.5f, 0.75f, 0.87f, 1 },
             new Color[] {
-                adjustTransparency(color, alpha * 1.00),  // semi-transparent in the middle
+                adjustTransparency(color, alpha * 0.5),  // semi-transparent in the middle
                 adjustTransparency(color, alpha * 0.96),
                 adjustTransparency(color, alpha * 0.84),
                 adjustTransparency(color, alpha * 0.50),
