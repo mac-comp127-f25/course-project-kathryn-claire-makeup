@@ -1,6 +1,7 @@
 package makeup;
 
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
 // import makeup.SprayPaint.Brush;
@@ -22,6 +23,9 @@ public class MakeupApp {
 
     public MakeupApp() {
         canvas = new CanvasWindow("Makeup", 900, 800);
+        Ellipse face = new Ellipse (0,0,100,100);
+        face.setStrokeColor(Color.BLACK);
+        canvas.add(face);
 
     //     brushSettingsView = new BrushSettingsView(Color.BLUE, 60);
     //     canvas.add(brushSettingsView, 10 - brushSettingsView.getBounds().getMinX(), 10);
