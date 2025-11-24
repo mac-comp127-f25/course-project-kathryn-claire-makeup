@@ -18,8 +18,11 @@ test {
 }
 
 java {
-    sourceCompatibility = 1.17
-    targetCompatibility = 1.17
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 sourceSets.main.java.srcDirs = ['src']
