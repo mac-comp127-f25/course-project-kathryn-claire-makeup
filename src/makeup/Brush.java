@@ -1,5 +1,4 @@
 package makeup;
-// import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
 import java.awt.Color;

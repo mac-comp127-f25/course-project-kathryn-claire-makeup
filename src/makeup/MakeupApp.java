@@ -1,13 +1,10 @@
 package makeup;
 
 import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.Ellipse;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
-// import makeup.SprayPaint.Brush;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.macalester.graphics.ui.Button;
@@ -30,7 +27,7 @@ public class MakeupApp {
         brushSettingsView = new BrushSettingsView(Color.BLUE, 60);
         canvas.add(brushSettingsView, 10 - brushSettingsView.getBounds().getMinX(), 10);
 
-        availableBrushes = List.of(new SprayBrush(), new Eraser());
+        availableBrushes = List.of(new SprayBrush(), new Eraser(), new ClearAll());
         currentBrush = availableBrushes.get(0);
 
         canvas.onMouseDown(event -> sprayPaint(event.getPosition()));
@@ -67,6 +64,5 @@ public class MakeupApp {
         public static void main(String[] args) {
             new MakeupApp();
         }
-
     
 }

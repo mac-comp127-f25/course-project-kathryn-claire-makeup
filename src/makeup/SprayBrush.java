@@ -13,4 +13,4 @@ public class SprayBrush implements Brush {
             paintLayer.add(dot);
         }
 
-    }
+}
