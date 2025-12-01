@@ -24,9 +24,9 @@ public class BrushSettingsView extends GraphicsGroup {
         greenField = addComponentField("Green", redField, 4);
         blueField = addComponentField("Blue", greenField, 4);
 
-        redField  .onChange((text) -> updateColorFromField(0, redField));
+        redField.onChange((text) -> updateColorFromField(0, redField));
         greenField.onChange((text) -> updateColorFromField(1, greenField));
-        blueField .onChange((text) -> updateColorFromField(2, blueField));
+        blueField.onChange((text) -> updateColorFromField(2, blueField));
 
         sizeField = addComponentField("Size", blueField, 16);
         sizeField.onChange((text) -> updateBrushSizeFromField());
@@ -93,6 +93,18 @@ public class BrushSettingsView extends GraphicsGroup {
         } catch (NumberFormatException e) {
             field.setBackground(new Color(0xFFCCCC));
         }
+    }
+
+    public TextField getRField() {
+        return redField;
+    }
+
+    public TextField getGField() {
+        return greenField;
+    }
+
+    public TextField getBField() {
+        return blueField;
     }
 }
 
