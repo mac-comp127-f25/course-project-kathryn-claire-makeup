@@ -14,7 +14,7 @@ public class BrushSettingsView extends GraphicsGroup {
     private int radius;
 
     private Rectangle colorDisplay;
-    private TextField redField, greenField, blueField, sizeField;
+    private TextField redField, greenField, blueField, sizeField, alphaField;
 
     public BrushSettingsView(Color initialColor, int initialSize) {
         colorDisplay = new Rectangle(0, 0, 100, 100);
@@ -23,10 +23,12 @@ public class BrushSettingsView extends GraphicsGroup {
         redField = addComponentField("Red", colorDisplay, 8);
         greenField = addComponentField("Green", redField, 4);
         blueField = addComponentField("Blue", greenField, 4);
+        alphaField = addComponentField("Alpha", blueField, 4);
 
         redField.onChange((text) -> updateColorFromField(0, redField));
         greenField.onChange((text) -> updateColorFromField(1, greenField));
         blueField.onChange((text) -> updateColorFromField(2, blueField));
+        alphaField.onChange((text) -> updateColorFromField(3, alphaField));
 
         sizeField = addComponentField("Size", blueField, 16);
         sizeField.onChange((text) -> updateBrushSizeFromField());
@@ -60,6 +62,7 @@ public class BrushSettingsView extends GraphicsGroup {
         updateComponentField(redField,   color.getRed());
         updateComponentField(greenField, color.getGreen());
         updateComponentField(blueField,  color.getBlue());
+        updateComponentField(alphaField, color.getAlpha());
     }
 
     private void updateComponentField(TextField field, int value) {
@@ -105,6 +108,10 @@ public class BrushSettingsView extends GraphicsGroup {
 
     public TextField getBField() {
         return blueField;
+    }
+
+    public TextField getAField() {
+        return alphaField;
     }
 }
 
