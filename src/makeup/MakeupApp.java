@@ -16,39 +16,53 @@ public class MakeupApp {
     private Brush currentBrush;
     private GraphicsGroup paintLayer; 
     private final List<Brush> availableBrushes;
-    private final List<Actions> buttons;
-    private Actions currentButton;
+    private Button blushButton, bronzerButton, monaLisaButton;
+    private Face currentFace;
 
     public MakeupApp() {
-        canvas = new CanvasWindow("Makeup", 900, 800);
-        canvas.add(new Marilyn().getGraphics(), -50, -60);
+        canvas = new CanvasWindow("Makeup", 900, 800); // creates canvas
+        canvas.add(new Marilyn().getGraphics(), -50, -60); // creates face
 
-        paintLayer = new GraphicsGroup();
+        paintLayer = new GraphicsGroup(); //creates paint layer
         canvas.add(paintLayer);
 
-        brushSettingsView = new BrushSettingsView(Color.WHITE, 60);
+        brushSettingsView = new BrushSettingsView(Color.WHITE, 60); //creates the color and size changer
         canvas.add(brushSettingsView, 10 - brushSettingsView.getBounds().getMinX(), 10);
 
-        availableBrushes = List.of(new Blush(), new Bronzer(), new Eraser());
-        currentBrush = availableBrushes.get(0);
+        availableBrushes = List.of(new Blush(), new Bronzer(), new Eraser(), new ClearAll()); //creates the different brushes
+        currentBrush = availableBrushes.get(0); 
 
-        if (currentBrush.getClass() == Blush.class) {
-            brushSettingsView.setColor(Color.PINK);
-        } else if (currentBrush.getClass() == Bronzer.class) {
-            brushSettingsView.setColor(Color.BLACK);
-        }
+        blushButton = new Button("Blush");
+        blushButton.setPosition(10, 300);
+        canvas.add(blushButton);
+        Brush blush = new Blush();
+        blushButton.onClick(() -> brushSettingsView.setColor(new Color(255, 0, 0, 5))); 
+        blushButton.onClick(() -> currentBrush = blush);
 
-        buttons = List.of(new ClearAll());
-        currentButton = buttons.get(0);
+        bronzerButton = new Button("Bronzer");
+        bronzerButton.setPosition(10, 340);
+        canvas.add(bronzerButton);
+        Brush bronzer = new Bronzer();
+        bronzerButton.onClick(() -> brushSettingsView.setColor(new Color(148, 115, 82, 255))); 
+        bronzerButton.onClick(() -> currentBrush = bronzer);
 
-        canvas.onMouseDown(event -> sprayPaint(event.getPosition()));
+        canvas.onMouseDown(event -> sprayPaint(event.getPosition())); // draws whichever brush is selected
         canvas.onDrag(event -> sprayPaint(event.getPosition()));
 
-        double y = 300;
-        for (Brush brush : availableBrushes) {
+        double y = 380; // adds the avaiableBrushes to the canvas
+        for (int i = 2; i < availableBrushes.size(); i++) {
+            Brush brush = availableBrushes.get(i);
             addBrushButton(brush, y);
             y += 40;
         }
+
+        monaLisaButton = new Button("Mona Lisa");
+        monaLisaButton.setPosition(10,460);
+        canvas.add(monaLisaButton);
+        Face monaLisa = new MonaLisa();
+        monaLisaButton.onClick(() ->    currentFace = new MonaLisa());
+        monaLisaButton.onClick(() ->    canvas.removeAll());
+                                        monaLisa.buildGraphics();
 
         }
 
@@ -67,17 +81,6 @@ public class MakeupApp {
 
             button.onClick(() -> {
                 currentBrush = brush;
-            });
-        }
-
-        public void addButton(Actions button, double y) {
-            String label = button.getClass().getSimpleName();
-            Button buttonGraphic = new Button (label);
-            buttonGraphic.setPosition (10,y);
-            canvas.add(buttonGraphic);
-
-            buttonGraphic.onClick(() -> {
-                currentButton = button;
             });
         }
 

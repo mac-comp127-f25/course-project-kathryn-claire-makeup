@@ -10,4 +10,8 @@ public class MonaLisa extends Face {
         getGraphics().add(monaLisa);
     }
 
+    protected void changeImage() {
+        
+    }
+
 }
