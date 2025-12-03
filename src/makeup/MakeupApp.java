@@ -16,12 +16,29 @@ public class MakeupApp {
     private Brush currentBrush;
     private GraphicsGroup paintLayer; 
     private final List<Brush> availableBrushes;
-    private Button blushButton, bronzerButton, monaLisaButton;
+    private Button blushButton, bronzerButton, monaLisaButton, marilynButton;
+    private GraphicsGroup faceLayer;
     private Face currentFace;
 
     public MakeupApp() {
         canvas = new CanvasWindow("Makeup", 900, 800); // creates canvas
-        canvas.add(new Marilyn().getGraphics(), -50, -60); // creates face
+
+        faceLayer = new GraphicsGroup();
+        canvas.add(faceLayer);
+        
+        currentFace = new Marilyn();
+        currentFace.buildGraphics();
+        faceLayer.add(currentFace.getGraphics());
+
+        monaLisaButton = new Button("Mona Lisa");
+        monaLisaButton.setPosition(10,460);
+        canvas.add(monaLisaButton);
+        monaLisaButton.onClick(() -> switchFace(new MonaLisa()));
+
+        marilynButton = new Button("Marilyn");
+        marilynButton.setPosition(10,500);
+        canvas.add(marilynButton);
+        marilynButton.onClick(() -> switchFace(new Marilyn()));
 
         paintLayer = new GraphicsGroup(); //creates paint layer
         canvas.add(paintLayer);
@@ -55,15 +72,6 @@ public class MakeupApp {
             addBrushButton(brush, y);
             y += 40;
         }
-
-        monaLisaButton = new Button("Mona Lisa");
-        monaLisaButton.setPosition(10,460);
-        canvas.add(monaLisaButton);
-        Face monaLisa = new MonaLisa();
-        monaLisaButton.onClick(() ->    currentFace = new MonaLisa());
-        monaLisaButton.onClick(() ->    canvas.removeAll());
-                                        monaLisa.buildGraphics();
-
         }
 
         public void sprayPaint(Point location) {
@@ -86,6 +94,14 @@ public class MakeupApp {
 
         public static void main(String[] args) {
             new MakeupApp();
+        }
+
+        private void switchFace (Face newFace) {
+            faceLayer.removeAll();
+            paintLayer.removeAll();
+            currentFace = newFace;
+            currentFace.buildGraphics();
+            faceLayer.add(currentFace.getGraphics());
         }
     
 }
