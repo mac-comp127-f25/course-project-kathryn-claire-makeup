@@ -4,6 +4,7 @@ import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.Rectangle;
+import edu.macalester.graphics.ui.Button;
 import edu.macalester.graphics.ui.TextField;
 
 import java.awt.Color;
@@ -15,6 +16,7 @@ public class BrushSettingsView extends GraphicsGroup {
 
     private Rectangle colorDisplay;
     private TextField redField, greenField, blueField, sizeField, alphaField;
+    private Button blushButton, bronzerButton;
 
     public BrushSettingsView(Color initialColor, int initialSize) {
         colorDisplay = new Rectangle(0, 0, 100, 100);
@@ -30,9 +32,19 @@ public class BrushSettingsView extends GraphicsGroup {
         blueField.onChange((text) -> updateColorFromField(2, blueField));
         alphaField.onChange((text) -> updateColorFromField(3, alphaField));
 
-        sizeField = addComponentField("Size", blueField, 16);
+        sizeField = addComponentField("Size", alphaField, 16);
         sizeField.onChange((text) -> updateBrushSizeFromField());
         sizeField.setText(String.valueOf(initialSize));
+
+        blushButton = new Button("Blush");
+        blushButton.setPosition(100, 300);
+        add(blushButton);
+        blushButton.onClick(() -> setColor(new Color(255, 0, 0, 255))); 
+
+        bronzerButton = new Button("Bronzer");
+        bronzerButton.setPosition(100, 400);
+        add(bronzerButton);
+        bronzerButton.onClick(() -> setColor(new Color(148, 115, 82, 255))); 
 
         setColor(initialColor);
         radius = initialSize;
