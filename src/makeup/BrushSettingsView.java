@@ -31,10 +31,10 @@ public class BrushSettingsView extends GraphicsGroup {
         alphaField.onChange((text) -> updateColorFromField(3, alphaField));
 
         sizeField = addComponentField("Size", alphaField, 16);
-        sizeField.onChange((text) -> updateBrushSizeFromField());
+        sizeField.onChange((text) -> updateColorFromField(4, sizeField));
         sizeField.setText(String.valueOf(initialSize));
 
-        setColor(initialColor);
+        setColor(initialColor); 
         radius = initialSize;
     }
 
@@ -63,6 +63,7 @@ public class BrushSettingsView extends GraphicsGroup {
         updateComponentField(greenField, color.getGreen());
         updateComponentField(blueField,  color.getBlue());
         updateComponentField(alphaField, color.getAlpha());
+        updateComponentField(sizeField, radius);
     }
 
     private void updateComponentField(TextField field, int value) {
@@ -82,9 +83,10 @@ public class BrushSettingsView extends GraphicsGroup {
         });
     }
 
-    private void updateBrushSizeFromField() {
-        readIntField(sizeField, (newSize) ->
-            radius = Math.max(0, newSize));
+    public void updateBrushSizeFromField(int size) {
+        // readIntField(sizeField, (size) ->
+        //     radius = Math.max(0, size));
+        radius = size;
     }
 
     private void readIntField(TextField field, Consumer<Integer> updateAction) {
@@ -112,6 +114,10 @@ public class BrushSettingsView extends GraphicsGroup {
 
     public TextField getAField() {
         return alphaField;
+    }
+
+    public TextField getSizeField() {
+        return sizeField;
     }
 }
 

@@ -16,7 +16,7 @@ public class MakeupApp {
     private Brush currentBrush;
     private GraphicsGroup paintLayer; 
     private final List<Brush> availableBrushes;
-    private Button blushButton, bronzerButton, monaLisaButton, marilynButton;
+    private Button blushButton, bronzerButton, eyeShadowButton, monaLisaButton, marilynButton;
     private GraphicsGroup faceLayer;
     private Face currentFace;
 
@@ -54,6 +54,7 @@ public class MakeupApp {
         canvas.add(blushButton);
         Brush blush = new Blush();
         blushButton.onClick(() -> brushSettingsView.setColor(new Color(200, 0, 0, 5))); 
+        blushButton.onClick(() -> brushSettingsView.updateBrushSizeFromField(50));
         blushButton.onClick(() -> currentBrush = blush);
 
         bronzerButton = new Button("Bronzer");
@@ -61,7 +62,16 @@ public class MakeupApp {
         canvas.add(bronzerButton);
         Brush bronzer = new Bronzer();
         bronzerButton.onClick(() -> brushSettingsView.setColor(new Color(148, 115, 82, 255))); 
+        bronzerButton.onClick(() -> brushSettingsView.updateBrushSizeFromField(40));
         bronzerButton.onClick(() -> currentBrush = bronzer);
+
+        eyeShadowButton = new Button("Eye Shadow");
+        eyeShadowButton.setPosition(10, 380);
+        canvas.add(eyeShadowButton);
+        Brush eyeShadow = new EyeShadow();
+        eyeShadowButton.onClick(() -> brushSettingsView.setColor(new Color(100, 0, 200, 150))); 
+        eyeShadowButton.onClick(() -> brushSettingsView.updateBrushSizeFromField(20));
+        eyeShadowButton.onClick(() -> currentBrush = eyeShadow);
 
         canvas.onMouseDown(event -> sprayPaint(event.getPosition())); // draws whichever brush is selected
         canvas.onDrag(event -> sprayPaint(event.getPosition()));
