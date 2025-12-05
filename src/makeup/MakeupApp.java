@@ -53,7 +53,7 @@ public class MakeupApp {
         blushButton.setPosition(10, 300);
         canvas.add(blushButton);
         Brush blush = new Blush();
-        blushButton.onClick(() -> brushSettingsView.setColor(new Color(255, 0, 0, 5))); 
+        blushButton.onClick(() -> brushSettingsView.setColor(new Color(200, 0, 0, 5))); 
         blushButton.onClick(() -> currentBrush = blush);
 
         bronzerButton = new Button("Bronzer");
