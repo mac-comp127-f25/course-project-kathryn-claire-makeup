@@ -2,11 +2,11 @@ package makeup;
 import edu.macalester.graphics.Image;
 
 
-public class Marilyn extends Face {
+public class FridaKahlo extends Face {
     @Override
     protected void buildGraphics(){
-        Image marilyn = new Image(300, 215, "marilynCutout.png");
-        marilyn.setScale(1.35,1.35);
+        Image marilyn = new Image(325, 230, "fridaKahloCutout.gif");
+        marilyn.setScale(1.6, 1.6);
         getGraphics().add(marilyn);
     }
 }

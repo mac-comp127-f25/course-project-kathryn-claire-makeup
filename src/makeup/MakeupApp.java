@@ -1,7 +1,9 @@
 package makeup;
 
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsGroup;
+import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.Point;
 
 import java.awt.Color;
@@ -16,29 +18,40 @@ public class MakeupApp {
     private Brush currentBrush;
     private GraphicsGroup paintLayer; 
     private final List<Brush> availableBrushes;
-    private Button blushButton, bronzerButton, eyeShadowButton, monaLisaButton, marilynButton;
+    private Button blushButton, bronzerButton, eyeShadowButton, monaLisaButton, marilynButton, fridaKahloButton;
     private GraphicsGroup faceLayer;
     private Face currentFace;
 
     public MakeupApp() {
         canvas = new CanvasWindow("Makeup", 900, 800); // creates canvas
+        canvas.setBackground(Color.LIGHT_GRAY);
 
         faceLayer = new GraphicsGroup();
         canvas.add(faceLayer);
+
+        GraphicsText makeupTitle = new GraphicsText("Makeup App!");
+        makeupTitle.setPosition(350, 100);
+        makeupTitle.setFont(FontStyle.BOLD, 75);
+        canvas.add(makeupTitle);
         
         currentFace = new Marilyn();
         currentFace.buildGraphics();
         faceLayer.add(currentFace.getGraphics());
 
         monaLisaButton = new Button("Mona Lisa");
-        monaLisaButton.setPosition(10,460);
+        monaLisaButton.setPosition(45,500);
         canvas.add(monaLisaButton);
         monaLisaButton.onClick(() -> switchFace(new MonaLisa()));
 
         marilynButton = new Button("Marilyn");
-        marilynButton.setPosition(10,500);
+        marilynButton.setPosition(45,540);
         canvas.add(marilynButton);
         marilynButton.onClick(() -> switchFace(new Marilyn()));
+
+        fridaKahloButton = new Button("Frida Kahlo");
+        fridaKahloButton.setPosition(45,580);
+        canvas.add(fridaKahloButton);
+        fridaKahloButton.onClick(() -> switchFace(new FridaKahlo()));
 
         paintLayer = new GraphicsGroup(); //creates paint layer
         canvas.add(paintLayer);
@@ -50,7 +63,7 @@ public class MakeupApp {
         currentBrush = availableBrushes.get(0); 
 
         blushButton = new Button("Blush");
-        blushButton.setPosition(10, 300);
+        blushButton.setPosition(45, 300);
         canvas.add(blushButton);
         Brush blush = new Blush();
         blushButton.onClick(() -> brushSettingsView.setColor(new Color(200, 0, 0, 5))); 
@@ -58,7 +71,7 @@ public class MakeupApp {
         blushButton.onClick(() -> currentBrush = blush);
 
         bronzerButton = new Button("Bronzer");
-        bronzerButton.setPosition(10, 340);
+        bronzerButton.setPosition(45, 340);
         canvas.add(bronzerButton);
         Brush bronzer = new Bronzer();
         bronzerButton.onClick(() -> brushSettingsView.setColor(new Color(148, 115, 82, 255))); 
@@ -66,17 +79,17 @@ public class MakeupApp {
         bronzerButton.onClick(() -> currentBrush = bronzer);
 
         eyeShadowButton = new Button("Eye Shadow");
-        eyeShadowButton.setPosition(10, 380);
+        eyeShadowButton.setPosition(45, 380);
         canvas.add(eyeShadowButton);
         Brush eyeShadow = new EyeShadow();
         eyeShadowButton.onClick(() -> brushSettingsView.setColor(new Color(100, 0, 200, 150))); 
-        eyeShadowButton.onClick(() -> brushSettingsView.updateBrushSizeFromField(20));
+        eyeShadowButton.onClick(() -> brushSettingsView.updateBrushSizeFromField(5));
         eyeShadowButton.onClick(() -> currentBrush = eyeShadow);
 
         canvas.onMouseDown(event -> sprayPaint(event.getPosition())); // draws whichever brush is selected
         canvas.onDrag(event -> sprayPaint(event.getPosition()));
 
-        double y = 380; // adds the avaiableBrushes to the canvas
+        double y = 420; // adds the avaiableBrushes to the canvas
         for (int i = 2; i < availableBrushes.size(); i++) {
             Brush brush = availableBrushes.get(i);
             addBrushButton(brush, y);
@@ -94,7 +107,7 @@ public class MakeupApp {
         public void addBrushButton(Brush brush, double y) {
             String label = brush.getClass().getSimpleName();
             Button button = new Button(label);
-            button.setPosition(10, y);
+            button.setPosition(45, y);
             canvas.add(button);
 
             button.onClick(() -> {
