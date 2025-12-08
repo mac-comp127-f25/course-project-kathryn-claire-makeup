@@ -10,9 +10,6 @@ import edu.macalester.graphics.Point;
 import java.awt.Color;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
 import edu.macalester.graphics.ui.Button;
 
 public class MakeupApp {
@@ -22,12 +19,12 @@ public class MakeupApp {
     private Brush currentBrush;
     private GraphicsGroup paintLayer; 
     private final List<Brush> availableBrushes;
-    private Button blendButton, blushButton, bronzerButton, eyeShadowButton, monaLisaButton, marilynButton, fridaKahloButton;
+    private Button blendButton, monaLisaButton, marilynButton, fridaKahloButton;
     private GraphicsGroup faceLayer;
     private Face currentFace;
 
     public MakeupApp() {
-        canvas = new CanvasWindow("Makeup", 900, 800); // creates canvas
+        canvas = new CanvasWindow("Makeup App!", 900, 800); // creates canvas
         canvas.setBackground(Color.LIGHT_GRAY);
 
         faceLayer = new GraphicsGroup();
@@ -61,48 +58,57 @@ public class MakeupApp {
         canvas.add(paintLayer);
 
         brushSettingsView = new BrushSettingsView(Color.WHITE, 60); //creates the color and size changer
-        canvas.add(brushSettingsView, 10 - brushSettingsView.getBounds().getMinX(), 10);
 
         availableBrushes = List.of(new Blush(), new Bronzer(), new Eraser(), new ClearAll()); //creates the different brushes
         currentBrush = availableBrushes.get(0); 
 
-        // blushButton = new Button("Blush");
-        // blushButton.setPosition(45, 300);
-        // canvas.add(blushButton);
         Brush blush = new Blush();
-        // blushButton.onClick(() -> brushSettingsView.setColor(new Color(200, 0, 0, 5))); 
-        // blushButton.onClick(() -> brushSettingsView.updateBrushSizeFromField(50));
-        // blushButton.onClick(() -> currentBrush = blush);
-
         Image blushImageButton = new Image(45, 300, "blush.png");
-        blushImageButton.setPosition(35, 300);
+        blushImageButton.setPosition(-160, -125);
+        blushImageButton.setScale(0.25);
         canvas.add(blushImageButton);
 
         canvas.onMouseDown(event -> {
-            Point pos = event.getPosition();
-            if (blushImageButton.testHit(pos.getX(), pos.getY())) {
-                brushSettingsView.setColor(new Color(200, 0, 0, 5));
-                brushSettingsView.updateBrushSizeFromField(50);
+            Point position = event.getPosition();
+            if (blushImageButton.testHit(position.getX(), position.getY())) {
+                brushSettingsView.setColor(new Color(200, 75, 75, 1));
+                brushSettingsView.updateBrushSizeFromField(45);
                 currentBrush = blush;
             }
             sprayPaint(event.getPosition());
         });
 
-        bronzerButton = new Button("Bronzer");
-        bronzerButton.setPosition(45, 420);
-        canvas.add(bronzerButton);
         Brush bronzer = new Bronzer();
-        bronzerButton.onClick(() -> brushSettingsView.setColor(new Color(148, 115, 82, 255))); 
-        bronzerButton.onClick(() -> brushSettingsView.updateBrushSizeFromField(40));
-        bronzerButton.onClick(() -> currentBrush = bronzer);
+        Image bronzerImageButton = new Image(45, 300, "bronzer.png");
+        bronzerImageButton.setPosition(-160,25);
+        bronzerImageButton.setScale(0.40);
+        canvas.add(bronzerImageButton);
 
-        eyeShadowButton = new Button("Eye Shadow");
-        eyeShadowButton.setPosition(45, 460);
-        canvas.add(eyeShadowButton);
+        canvas.onMouseDown(event -> {
+            Point position = event.getPosition();
+            if (bronzerImageButton.testHit(position.getX(), position.getY())) {
+                brushSettingsView.setColor(new Color(148, 115, 82, 255));
+                brushSettingsView.updateBrushSizeFromField(35);
+                currentBrush = bronzer;
+            }
+            sprayPaint(event.getPosition());
+        });
+
         Brush eyeShadow = new EyeShadow();
-        eyeShadowButton.onClick(() -> brushSettingsView.setColor(new Color(100, 0, 200, 150))); 
-        eyeShadowButton.onClick(() -> brushSettingsView.updateBrushSizeFromField(15));
-        eyeShadowButton.onClick(() -> currentBrush = eyeShadow);
+        Image eyeShadowImageButton = new Image(45, 300, "eyeshadow.png");
+        eyeShadowImageButton.setPosition(-155,160);
+        eyeShadowImageButton.setScale(0.25);
+        canvas.add(eyeShadowImageButton);
+
+        canvas.onMouseDown(event -> {
+            Point position = event.getPosition();
+            if (eyeShadowImageButton.testHit(position.getX(), position.getY())) {
+                brushSettingsView.setColor(new Color(100, 0, 200, 150));
+                brushSettingsView.updateBrushSizeFromField(10);
+                currentBrush = eyeShadow;
+            }
+            sprayPaint(event.getPosition());
+        });
 
         blendButton = new Button("Blend");
         blendButton.setPosition(45, 500);
@@ -111,9 +117,6 @@ public class MakeupApp {
         blendButton.onClick(() -> brushSettingsView.setColor(new Color(192, 192, 192, 50))); 
         blendButton.onClick(() -> brushSettingsView.updateBrushSizeFromField(70));
         blendButton.onClick(() -> currentBrush = blend);
-
-        // canvas.onMouseDown(event -> sprayPaint(event.getPosition())); // draws whichever brush is selected
-        // canvas.onDrag(event -> sprayPaint(event.getPosition()));
 
         double y = 540; // adds the avaiableBrushes to the canvas
         for (int i = 2; i < availableBrushes.size(); i++) {
