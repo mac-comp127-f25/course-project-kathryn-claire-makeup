@@ -22,6 +22,7 @@ public class MakeupApp {
     private Button blendButton, monaLisaButton, marilynButton, fridaKahloButton;
     private GraphicsGroup faceLayer;
     private Face currentFace;
+    private List<BrushImageButton> brushIcons;
 
     public MakeupApp() {
         canvas = new CanvasWindow("Makeup App!", 900, 800); // creates canvas
@@ -62,54 +63,21 @@ public class MakeupApp {
         availableBrushes = List.of(new Blush(), new Bronzer(), new Eraser(), new ClearAll()); //creates the different brushes
         currentBrush = availableBrushes.get(0); 
 
-        Brush blush = new Blush();
-        Image blushImageButton = new Image(45, 300, "blush.png");
-        blushImageButton.setPosition(-160, -125);
-        blushImageButton.setScale(0.25);
-        canvas.add(blushImageButton);
+        setupBrushSelection();
 
         canvas.onMouseDown(event -> {
             Point position = event.getPosition();
-            if (blushImageButton.testHit(position.getX(), position.getY())) {
-                brushSettingsView.setColor(new Color(200, 75, 75, 1));
-                brushSettingsView.updateBrushSizeFromField(45);
-                currentBrush = blush;
+            for (BrushImageButton icon : brushIcons) {
+                if (icon.image.testHit(position.getX(), position.getY())) { 
+                    brushSettingsView.setColor(icon.color);
+                    brushSettingsView.updateBrushSizeFromField(icon.size);
+                    currentBrush = icon.brush;
+                    return;
+                }
             }
-            sprayPaint(event.getPosition());
+            sprayPaint(position);
         });
-
-        Brush bronzer = new Bronzer();
-        Image bronzerImageButton = new Image(45, 300, "bronzer.png");
-        bronzerImageButton.setPosition(-160,25);
-        bronzerImageButton.setScale(0.40);
-        canvas.add(bronzerImageButton);
-
-        canvas.onMouseDown(event -> {
-            Point position = event.getPosition();
-            if (bronzerImageButton.testHit(position.getX(), position.getY())) {
-                brushSettingsView.setColor(new Color(148, 115, 82, 255));
-                brushSettingsView.updateBrushSizeFromField(35);
-                currentBrush = bronzer;
-            }
-            sprayPaint(event.getPosition());
-        });
-
-        Brush eyeShadow = new EyeShadow();
-        Image eyeShadowImageButton = new Image(45, 300, "eyeshadow.png");
-        eyeShadowImageButton.setPosition(-155,160);
-        eyeShadowImageButton.setScale(0.25);
-        canvas.add(eyeShadowImageButton);
-
-        canvas.onMouseDown(event -> {
-            Point position = event.getPosition();
-            if (eyeShadowImageButton.testHit(position.getX(), position.getY())) {
-                brushSettingsView.setColor(new Color(100, 0, 200, 150));
-                brushSettingsView.updateBrushSizeFromField(10);
-                currentBrush = eyeShadow;
-            }
-            sprayPaint(event.getPosition());
-        });
-
+    
         blendButton = new Button("Blend");
         blendButton.setPosition(45, 500);
         canvas.add(blendButton);
@@ -154,6 +122,43 @@ public class MakeupApp {
             currentFace = newFace;
             currentFace.buildGraphics();
             faceLayer.add(currentFace.getGraphics());
+        }
+
+        private void setupBrushSelection() {
+            brushIcons = List.of(
+            new BrushImageButton(new Blush(), new Image(0,0,"blush.png"), new Color(200, 75, 75, 1), 45),
+            new BrushImageButton(new Bronzer(), new Image(0,0,"bronzer.png"), new Color(148, 115, 82, 255), 35),
+            new BrushImageButton(new EyeShadow(), new Image(0,0,"eyeshadow.png"), new Color(100, 0, 200, 150), 10)
+            );
+            loadBrushIcons();
+        }
+
+        private void loadBrushIcons() {
+            double yOffset = -125;
+            for (BrushImageButton icon : brushIcons) {
+                icon.image.setPosition(-160, yOffset);
+                if (icon.brush instanceof Bronzer) {
+                    icon.image.setScale(0.42);
+                } else {
+                    icon.image.setScale(0.25);
+                }
+                canvas.add(icon.image);
+                yOffset += 150;
+            }
+        }
+
+        private static class BrushImageButton {
+            Brush brush;
+            Image image;
+            Color color;
+            int size;
+
+            BrushImageButton(Brush brush, Image image, Color color, int size) {
+                this.brush = brush;
+                this.image = image;
+                this.color = color;
+                this.size = size;
+            }
         }
     
 }
