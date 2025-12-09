@@ -19,11 +19,13 @@
 		
 	- Acknowledge any help, references, inspiration, or outside resources you used. If your game includes any art or sound assets, or includes the work of others in any way, credit the creator(s) and link to the source(s).
 
-	We acknowledge the help and inspiration we got from the Painter App homework from this course. Our game puts the paint graphics from Painter into context
+	We acknowledge the help and inspiration we got from the Painter App homework from this course. Our game puts the paint graphics from Painter into context with the help of the Critters in-class activity for inputting images into our interface.
 
 ## Known issues:
 	- Are there fundamental design limitations that users should be aware of?
 	- Are there specific bugs, glitches, or shortcomings that users should be aware of?
+
+	There are currently no design limitations that users should be aware of as every button fulfills the function of their description. There are shortcomings on the freedom users have when interacting with the interface, but that is a product of the intentions behind our code. For example, there is only one eye shadow color and all pigments have a designated color, opacity, and size.
 
 ## Societal impact:
 	- Please write about how your project abides by ethical considerations and socially responsible computing practices. Be mindful that anything created by humans, including software, can carry embedded biases and have unintended consequences. In every software project, you must consider the ways in which your program can promote justice or heighten injustices, either through unintentional effects or through malicious misuse.
