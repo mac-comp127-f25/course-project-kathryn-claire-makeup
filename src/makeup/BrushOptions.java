@@ -1,11 +1,11 @@
 package makeup;
 import java.awt.Color;
 
-
-public class BrushOptions {
 /**
  * Describes the adjustable settings that can apply to a brush.
  */
+public class BrushOptions {
+    
     private Color color;
     private int radius;
 
