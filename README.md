@@ -39,6 +39,8 @@
 		- In what ways do you anticipate your software project being used in malicious and oppressive situations?
 		- Could there be unintended consequences of your software creation?
 
+	Our code has the potential to exclude individuals who cannot physically access the necessary software to play the game. But, it has been designed with a broad audience in mind. The game can potentially be used in a malicious and oppressive situation as it gives freedom for a user to vandalize the faces on the program. Hopefully, no one would have malicious intent in putting makeup on the faces of iconic women throughout history. The sheer impermanance and privacy of the game allows for user creativity to decorate and have fun with the added mechanisms in the Makeup App.
+
 	- Note that you do not need to fix every problem you identify. Our goal is for you to develop an awareness of these issues early on in your computing journey. Being able to identify and raise ethical concerns in your software work is an important skill to have. We want you to start developing that skill now.
 
 
