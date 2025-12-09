@@ -44,7 +44,7 @@ public class MakeupApp {
         canvas.add(monaLisaButton);
         monaLisaButton.onClick(() -> switchFace(new MonaLisa()));
 
-        marilynButton = new Button("Marilyn");
+        marilynButton = new Button("Marilyn Monroe");
         marilynButton.setPosition(45,620);
         canvas.add(marilynButton);
         marilynButton.onClick(() -> switchFace(new Marilyn()));
