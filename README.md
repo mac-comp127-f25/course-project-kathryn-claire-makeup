@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 # Makeup App
->>>>>>> 12be7406eb07f144265ac9c61c635adc0dcb0349
 
 ## Project Title
 	Makeup App!
@@ -12,9 +9,13 @@
 ## Project description:
 	- Give a one-sentence description of your project, so that somebody considering pulling the code knows what to expect.
 
+	The Makeup App! is an interactive interface that allows the user to draw on the faces of Mona Lisa, Marilyn Monroe, and Frida Kahlo using blush, bronzer, and eyeshadow as the selective pigments.
+
 	- Give a brief technical guide to running your code:
-		- What are its technical requirements? (At a minimum, it requires that you have Java 17/21 installed, because that’s what Kilt 		 Graphics requires. Anything else?)
+		- What are its technical requirements? (At a minimum, it requires that you have Java 17/21 installed, because that’s what Kilt Graphics requires. Anything else?)
 		- How should somebody run the program? Where is the main class?
+
+	The technical requirements end with the installation of Kilt Graphics and somebody should run the program by 
 		
 	- Acknowledge any help, references, inspiration, or outside resources you used. If your game includes any art or sound assets, or includes the work of others in any way, credit the creator(s) and link to the source(s).
 
