@@ -15,9 +15,11 @@
 		- What are its technical requirements? (At a minimum, it requires that you have Java 17/21 installed, because that’s what Kilt Graphics requires. Anything else?)
 		- How should somebody run the program? Where is the main class?
 
-	The technical requirements end with the installation of Kilt Graphics and somebody should run the program by 
+	The technical requirements end with the installation of Kilt Graphics and interacting with the program starts by running the main method, MakeupApp.java.
 		
 	- Acknowledge any help, references, inspiration, or outside resources you used. If your game includes any art or sound assets, or includes the work of others in any way, credit the creator(s) and link to the source(s).
+
+	We acknowledge the help and inspiration we got from the Painter App homework from this course. Our game puts the paint graphics from Painter into context
 
 ## Known issues:
 	- Are there fundamental design limitations that users should be aware of?
