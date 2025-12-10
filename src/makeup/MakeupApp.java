@@ -8,7 +8,9 @@ import edu.macalester.graphics.Image;
 import edu.macalester.graphics.Point;
 
 import java.awt.Color;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.macalester.graphics.ui.Button;
 
@@ -23,6 +25,11 @@ public class MakeupApp {
     private GraphicsGroup faceLayer;
     private Face currentFace;
     private List<BrushImageButton> brushIcons;
+    private double minX = 300;
+    private double minY = 100;
+    private double maxX = 700;
+    private double maxY = 700;
+    private Map<Class<? extends Face>, GraphicsGroup> faceLayers = new HashMap<>();
 
     public MakeupApp() {
         //creates canvas
@@ -85,7 +92,9 @@ public class MakeupApp {
                     return;
                 }
             }
-            sprayPaint(position);
+            if (isWithinBounds(position)) {
+                sprayPaint(position);
+            }
         });
 
         //creates the blend button
@@ -110,7 +119,6 @@ public class MakeupApp {
      * Applies the paint to the canvas
      * @param location is the location the user clicked on the screen, where the spray paint will show up
     */
-
     public void sprayPaint(Point location) {
         BrushOptions brushOptions = brushSettingsView.getBrushOptions();
         Color color = brushOptions.getColor();
@@ -123,7 +131,6 @@ public class MakeupApp {
      * @param brush is the brush that has been selected
      * @param y is the y position the button will be placed at
      */
-
     public void addBrushButton(Brush brush, double y) {
         String label = brush.getClass().getSimpleName();
         Button button = new Button(label);
@@ -143,12 +150,27 @@ public class MakeupApp {
      * @param newFace is the face the user has selected
      */
     private void switchFace (Face newFace) {
+        Class<? extends Face> newFaceType = newFace.getClass();
+
+        if (currentFace.getClass() == newFace.getClass()) {
+            return;
+        } 
+
+        faceLayers.put(currentFace.getClass(), paintLayer);
+
         faceLayer.removeAll();
-        paintLayer.removeAll();
+        canvas.remove(paintLayer);
+
         currentFace = newFace;
         currentFace.buildGraphics();
         faceLayer.add(currentFace.getGraphics());
+
+        paintLayer = faceLayers.getOrDefault(newFaceType, new GraphicsGroup());
+        faceLayers.putIfAbsent(newFaceType, paintLayer);
+
+        canvas.add(paintLayer);
     }
+    
 
     /**
      * Sets up the brush selection of the actual makeup brushes
@@ -177,5 +199,16 @@ public class MakeupApp {
             canvas.add(icon.image);
             yOffset += 150;
         }
+    }
+
+    /**
+     * Checks that the position the user wants to put makeup on is within the bounds of the face
+     * @param position where the user clicked on the screen
+     * @return true if it is within the bounds, false if it is out of the bounds
+     */
+    private boolean isWithinBounds(Point position) {
+        double positionX = position.getX();
+        double positionY = position.getY();
+        return (positionX >= minX && positionX <= maxX) && (positionY >= minY && positionY <= maxY); 
     }
 }
