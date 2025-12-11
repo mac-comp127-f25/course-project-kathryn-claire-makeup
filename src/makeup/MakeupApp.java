@@ -86,6 +86,11 @@ public class MakeupApp {
             Point position = event.getPosition();
             for (BrushImageButton icon : brushIcons) {
                 if (icon.image.testHit(position.getX(), position.getY())) { 
+                    //if the brush is eyeshadow, then it calls adjustEyeshadow to adjust the color based on the click point
+                    if (icon.brush instanceof EyeShadow) {
+                        adjustEyeshadow(icon, position);
+                        return;
+                    }
                     brushSettingsView.setColor(icon.color);
                     brushSettingsView.updateBrushSizeFromField(icon.size);
                     currentBrush = icon.brush;
@@ -102,7 +107,6 @@ public class MakeupApp {
         blendButton.setPosition(45, 500);
         canvas.add(blendButton);
         Brush blend = new Blend();
-        blendButton.onClick(() -> brushSettingsView.setColor(new Color(192, 192, 192, 50))); 
         blendButton.onClick(() -> brushSettingsView.updateBrushSizeFromField(70));
         blendButton.onClick(() -> currentBrush = blend);
 
@@ -190,7 +194,11 @@ public class MakeupApp {
     private void loadBrushIcons() {
         double yOffset = -125;
         for (BrushImageButton icon : brushIcons) {
-            icon.image.setPosition(-160, yOffset);
+            if (icon.brush instanceof EyeShadow) {
+                icon.image.setPosition(-150, yOffset + 20);
+            } else {
+                icon.image.setPosition(-160, yOffset);
+            }
             if (icon.brush instanceof Bronzer) {
                 icon.image.setScale(0.42);
             } else {
@@ -210,5 +218,32 @@ public class MakeupApp {
         double positionX = position.getX();
         double positionY = position.getY();
         return (positionX >= minX && positionX <= maxX) && (positionY >= minY && positionY <= maxY); 
+    }
+
+    /**
+     * Adjusts the color when the brush is an eyeshadow, color based on where they click on the icon
+     * @param icon is the eyeshadow brush 
+     * @param click is the location they clicked the icon
+     */
+    private void adjustEyeshadow (BrushImageButton icon, Point click) {
+        Color newColor;
+        double x = click.getX() - icon.image.getX();
+        double y = click.getY() - icon.image.getY();
+        double width = icon.image.getWidth();
+        double height = icon.image.getHeight();
+        boolean left = x < (width/2);
+        boolean top = y < (height/2);
+        if (top && left) {
+            newColor = new Color (63, 153, 140);
+        } else if (top && !left) {
+            newColor = new Color (254,107,104);
+        } else if (!top && left) {
+            newColor = new Color (255,207,86);
+        } else {
+            newColor = new Color (232,106,176);
+        }
+        brushSettingsView.setColor(newColor);
+        brushSettingsView.updateBrushSizeFromField(10);
+        currentBrush = icon.brush;
     }
 }

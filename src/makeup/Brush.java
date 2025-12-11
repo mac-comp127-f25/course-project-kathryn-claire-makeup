@@ -2,6 +2,7 @@ package makeup;
 
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
+
 import java.awt.Color;
 
 public interface Brush {

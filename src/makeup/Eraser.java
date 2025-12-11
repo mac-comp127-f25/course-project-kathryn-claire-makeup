@@ -3,6 +3,7 @@ package makeup;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Point;
+
 import java.awt.Color;
 
 public class Eraser implements Brush {
