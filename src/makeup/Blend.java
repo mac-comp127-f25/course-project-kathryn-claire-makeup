@@ -13,5 +13,4 @@ public class Blend implements Brush {
         dot.setCenter(location.getX(), location.getY());
         paintLayer.add(dot);
     }   
-    
 }
